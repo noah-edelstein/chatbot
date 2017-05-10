@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
+import example.jbot.watson.*;
 
 import java.util.regex.Matcher;
 
@@ -24,6 +25,7 @@ import java.util.regex.Matcher;
 public class SlackBot extends Bot {
 
     private static final Logger logger = LoggerFactory.getLogger(SlackBot.class);
+    private ConversationClient client;
 
     /**
      * Slack token from application.properties file. You can get your slack token
