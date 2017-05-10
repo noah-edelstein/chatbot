@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 public class SlackBot extends Bot {
 
     private static final Logger logger = LoggerFactory.getLogger(SlackBot.class);
-    private ConversationClient client;
+    private ConversationClient client = new ConversationClient();
 
     /**
      * Slack token from application.properties file. You can get your slack token
@@ -160,5 +160,12 @@ public class SlackBot extends Bot {
             reply(session, event, new Message("Oh! my boss is smart enough to remind himself :)"));
         }
         stopConversation(event);    // stop conversation
+    }
+    
+    @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE}, pattern="(test connection)")
+    public void checkConnection(WebSocketSession session, Event event) {
+    	String message = "hello";
+		String response = client.sendMessage(message);
+		reply(session, event, new Message(response));
     }
 }

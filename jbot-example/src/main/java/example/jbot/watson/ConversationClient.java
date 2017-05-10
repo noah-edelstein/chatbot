@@ -3,6 +3,8 @@
  */
 package example.jbot.watson;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +31,20 @@ public class ConversationClient {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConversationClient.class); 
 	
-	public boolean sendMessage(MessageRequest request) {
-		boolean status = false;
+	public String sendMessage(String message) {
+		MessageRequest request = new MessageRequest.Builder()
+				  .inputText(message)
+				  // Replace with the context obtained from the initial request
+				  //.context(...)
+				  .build();
 		ServiceCall<MessageResponse> serviceCall = service.message(WORKSPACEID, request);
 		MessageResponse response =  serviceCall.execute();
-		LOGGER.info(response.getInputText());
-		System.out.println(response.getText());
-		return true;
+		List<String> responseList = response.getText();
+		StringBuilder sb = new StringBuilder();
+		for (String r : responseList) {
+			sb.append(r);
+		}
+		LOGGER.info(sb.toString());
+		return sb.toString();
 	}
 }

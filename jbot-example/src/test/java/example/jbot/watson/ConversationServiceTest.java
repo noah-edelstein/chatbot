@@ -21,7 +21,7 @@ public class ConversationServiceTest {
 				  // Replace with the context obtained from the initial request
 				  //.context(...)
 				  .build();
-		client.sendMessage(request);
+		client.sendMessage("what is a good food?");
 	}
 	
 }
